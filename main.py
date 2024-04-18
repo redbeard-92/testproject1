@@ -87,5 +87,4 @@ wb_hosts = openpyxl.load_workbook(hosts_file)
 sheet_hosts = wb_hosts.active
 process_devices(sheet_hosts)
 update_os_from_hosts_as(hosts_file, 'hostsAs.xlsx')
-
 print("Готово!")
