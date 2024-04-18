@@ -82,16 +82,10 @@ def process_devices(sheet):
             except Exception as e:
                 print(f"Ошибка при обработке устройства с IP {ip_address}: {e}")
 
-
-# Открываем файл hosts.xlsx
 hosts_file = 'hosts.xlsx'
 wb_hosts = openpyxl.load_workbook(hosts_file)
 sheet_hosts = wb_hosts.active
-
-# Обработка устройств
 process_devices(sheet_hosts)
-
-# Обновление операционных систем из hostsAs.xlsx
 update_os_from_hosts_as(hosts_file, 'hostsAs.xlsx')
 
 print("Готово!")
