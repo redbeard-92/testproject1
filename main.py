@@ -2,7 +2,6 @@ import openpyxl
 import subprocess
 import socket
 
-
 def check_ping(ip_address):
     try:
         result = subprocess.run(['ping', '-n', '1', ip_address], capture_output=True, text=True, timeout=5)
@@ -10,8 +9,6 @@ def check_ping(ip_address):
     except Exception as e:
         print(f"Ошибка при выполнении ping для {ip_address}: {e}")
         return False
-
-
 def get_hostname(ip_address):
     try:
         result = subprocess.check_output(['ping', '-a', ip_address], stderr=subprocess.STDOUT, universal_newlines=True)
@@ -19,7 +16,6 @@ def get_hostname(ip_address):
         return hostname
     except subprocess.CalledProcessError:
         return None
-
 
 def detect_os(ip_address):
     try:
@@ -32,7 +28,6 @@ def detect_os(ip_address):
     except Exception as e:
         print(f"Ошибка при определении операционной системы для IP {ip_address}: {e}")
     return "Unknown"
-
 
 def process_devices(sheet):
     max_row = sheet.max_row
@@ -57,7 +52,6 @@ def process_devices(sheet):
             except Exception as e:
                 print(f"Ошибка при обработке устройства с IP {ip_address}: {e}")
 
-
 def process_hostnames(sheet):
     max_row = sheet.max_row
     for row in range(2, max_row + 1):
@@ -76,18 +70,9 @@ def process_hostnames(sheet):
             except Exception as e:
                 print(f"Ошибка при обработке хостнейма {hostname}: {e}")
 
-
-# Открываем файл hosts.xlsx
 wb = openpyxl.load_workbook('hosts.xlsx')
 sheet = wb.active
-
-# Обработка устройств
 process_devices(sheet)
-
-# Обработка хостнеймов
 process_hostnames(sheet)
-
-# Сохраняем изменения
 wb.save('hosts.xlsx')
-
 print("Готово!")
